@@ -130,24 +130,19 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
-            align-items: flex-start;
+            align-items: center;
             font-size: 20px;
             color: black;
             position: relative;
-            padding-top: 20px;
+            padding: 20px;
             overflow: hidden;
-            aspect-ratio: auto;
-        }
-        .song-widget.expanded {
-            aspect-ratio: 1/1;
+            background-color: white;
         }
          .album-cover {
-         position: absolute;
-         top: 50%;
-         right: 18px;
-         transform: translateY(-50%);
          width: 60px;
          height: 60px;
+         border: 3px solid black;
+         cursor: pointer;
          }
          .quote-widget {
          display: flex;
@@ -175,16 +170,6 @@
          margin-bottom: 2.5px;
          margin-right: 20px;
          }
-         .play-pause-button {
-         width: 40px;
-         height: 40px;
-         margin-right: 36px;
-         margin-top: 3px;
-         margin-bottom: 10px;
-         margin-left: 5px;
-         background-size: cover;
-         -webkit-tap-highlight-color: transparent;
-         }
       </style>
    </head>
    <body>
@@ -198,7 +183,7 @@
              }
          }, { passive: false });
          const songs = [
-          { title: 'TOGETHER!', artist: 'JANNABI', cover: 'images/a.png', mp3: 'images/a.mp3'},
+          { title: 'TOGETHER!', artist: 'JANNABI', cover: 'images/a.png', spotify: 'https://open.spotify.com/track/7oK9VyNzrYvRFo7nQEYkWN' },
          ];
          const quotes = [
           { quote: '친구에게 충고하려 할 때다.', author: '이솝 우화' },
@@ -237,26 +222,11 @@
            const randomSong = getRandomElement(songs);
            const songWidget = document.createElement('div');
            songWidget.className = 'widget-box song-widget';
-           songWidget.style.backgroundImage = `url('${randomSong.cover}')`;
-           songWidget.style.backgroundSize = 'cover';
-           songWidget.innerHTML = `<div class="play-pause-button" style="background-image: url('images/play.png');"></div><div class="song-details"><strong>${randomSong.title}</strong><br>${randomSong.artist}</div>`;
+           songWidget.innerHTML = `<img src="${randomSong.cover}" class="album-cover"><div class="song-details"><strong>${randomSong.title}</strong><br>${randomSong.artist}</div>`;
 
-           const audio = new Audio(randomSong.mp3);
-           const playPauseButton = songWidget.querySelector('.play-pause-button');
-           playPauseButton.addEventListener('click', function() {
-               if (audio.paused) {
-                   audio.play();
-                   this.style.backgroundImage = "url('images/pause.png')";
-                   songWidget.classList.add('expanded');
-               } else {
-                   audio.pause();
-                   this.style.backgroundImage = "url('images/play.png')";
-                   songWidget.classList.remove('expanded');
-               }
-           });
-
-           audio.addEventListener('ended', function() {
-               playPauseButton.style.backgroundImage = "url('images/play.png')";
+           const albumCover = songWidget.querySelector('.album-cover');
+           albumCover.addEventListener('click', function() {
+               window.location.href = randomSong.spotify;
            });
 
            const weatherWidget = document.createElement('div');
@@ -278,7 +248,6 @@
              weatherWidget.innerHTML = '<p>Weather data not available</p>';
            }
 
-          songWidget.classList.add('expanded')
           const widgets = document.getElementById('widgets');
           widgets.appendChild(dateWidget);
           widgets.appendChild(weatherWidget);
@@ -305,10 +274,6 @@
                 });
                 widgets.style.maxHeight = '0';
             }
-            setTimeout(()=> {
-            const songWidget = document.querySelector('.song-widget');
-            songWidget.classList.toggle('expanded')
-              }, 300);
          }
 
          document.addEventListener('DOMContentLoaded', function() {
