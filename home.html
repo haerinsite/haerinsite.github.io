@@ -213,8 +213,9 @@
           { quote: '해야할 일을 끝까지 하라, 결심한 일은 반드시 실행하라.', author: '백지의 물결빛' }
          ];
 
-         function getRandomElement(array) {
-          return array[Math.floor(Math.random() * array.length)];
+         function getRandomElement(array, day, month) {
+          const seed = day * month;
+          return array[seed % array.length];
          }
 
          async function initializeWidgets() {
@@ -226,12 +227,14 @@
           const formattedTime = now.toLocaleString('ko-KR', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Seoul' });
           dateWidget.innerHTML = `<div class="number-day">${dateInKorea}</div><div><strong>${dayOfWeek}</strong><br>${formattedTime}</div>`;
 
-          const randomQuote = getRandomElement(quotes);
+          const nowDay = now.getDate();
+          const nowMonth = now.getMonth() + 1;
+          const randomQuote = getRandomElement(quotes, nowDay, nowMonth);
           const quoteWidget = document.createElement('div');
           quoteWidget.className = 'widget-box quote-widget';
           quoteWidget.innerHTML = `<img src="icons/quote.png" class="quote-icon"><div><strong><em>${randomQuote.quote}</em></strong><br>${randomQuote.author}</div>`;
 
-          const randomSongUrl = getRandomElement(songUrls);
+          const randomSongUrl = getRandomElement(songUrls, nowDay, nowMonth);
           const songWidget = document.createElement('div');
           songWidget.className = 'widget-box song-widget';
           songWidget.innerHTML = `<iframe style="border-radius:12px" src="${randomSongUrl}?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
