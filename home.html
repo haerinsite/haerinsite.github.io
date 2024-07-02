@@ -61,14 +61,14 @@
          right: 18px;
          width: 30px;
          height: 30px;
-         background-image: url('images/heart1.png');
+         background-image: url('icons/heart1.png');
          background-size: cover;
          cursor: pointer;
          transition: transform 0.3s ease;
          -webkit-tap-highlight-color: transparent;
          }
          .heart-button.liked {
-         background-image: url('images/heart2.png');
+         background-image: url('icons/heart2.png');
          transform: scale(1.3);
          }
          .photo {
@@ -229,7 +229,7 @@
           const randomQuote = getRandomElement(quotes);
           const quoteWidget = document.createElement('div');
           quoteWidget.className = 'widget-box quote-widget';
-          quoteWidget.innerHTML = `<img src="images/quote.png" class="quote-icon"><div><strong><em>${randomQuote.quote}</em></strong><br>${randomQuote.author}</div>`;
+          quoteWidget.innerHTML = `<img src="icons/quote.png" class="quote-icon"><div><strong><em>${randomQuote.quote}</em></strong><br>${randomQuote.author}</div>`;
 
           const randomSongUrl = getRandomElement(songUrls);
           const songWidget = document.createElement('div');
@@ -245,7 +245,7 @@
              const response = await fetch(url);
              const data = await response.json();
 
-             const weatherIcon = `images/${data.weather[0].icon}.png`;
+             const weatherIcon = `icons/${data.weather[0].icon}.png`;
              const weatherDescription = data.weather[0].description.trim();
              const temperature = data.main.temp.toFixed(1);
 
@@ -299,26 +299,6 @@
 
              const photos = [
                  { filename: 'images/1.png', title: 'ISA와 함께', date: '2023년 12월' },
-                 { filename: 'images/2.png', title: '김치!', date: '2022년 11월'},
-                 { filename: 'images/3.png', title: '베이비 클라우드', date: '2023년 07월' },
-                 { filename: 'images/4.png', title: 'SANA를 만나다', date: '2024년 01월'},
-                 { filename: 'images/5.png', title: '졸업식 날!', date: '2023년 02월'},
-                 { filename: 'images/6.png', title: 'HAEWON 생일 축하해', date: '2023년 02월'},
-                 { filename: 'images/7.png', title: '아늑한 하루', date: '2023년 01월'},
-                 { filename: 'images/8.png', title: '눈물을 닦아', date: '2024년 01월'},
-                 { filename: 'images/9.png', title: 'EUNCHAE 일기장', date: '2024년 02월'},
-                 { filename: 'images/10.png', title: '뮤직뱅크 JUNGHA', date: '2023년 12월'},
-                 { filename: 'images/11.png', title: '수상한 동급생', date: '2023년 07월'},
-                 { filename: 'images/12.png', title: 'MC 쌍둥이', date: '2023년 07월'},
-                 { filename: 'images/13.png', title: '크리스마스', date: '2023년 12월'},
-                 { filename: 'images/14.png', title: '음악 핵심', date: '2023년 10월'},
-                 { filename: 'images/15.png', title: '스트레이 키즈', date: '2023년 06월'},
-                 { filename: 'images/16.png', title: '멍청아!', date: '2023년 03월'},
-                 { filename: 'images/17.png', title: '세련된 화이트', date: '2022년 03월'},
-                 { filename: 'images/18.png', title: 'O.O O.O', date: '2023년 05월'},
-                 { filename: 'images/19.png', title: '포근하게', date: '2023년 05월'},
-                 { filename: 'images/20.png', title: '릴리 그린', date: '2022년 09월'},
-                 { filename: 'images/21.png', title: '놀라다!', date: '2022년 05월'},
              ];
 
                function preloadImages() {
@@ -326,7 +306,7 @@
                        const img = new Image();
                        img.src = photo.filename;
                    });
-                   const heartImages = ['images/heart1.png', 'images/heart2.png'];
+                   const heartImages = ['icons/heart1.png', 'icons/heart2.png'];
                    heartImages.forEach(imageSrc => {
                        const img = new Image();
                        img.src = imageSrc;
@@ -345,7 +325,7 @@
            function toggleHeart(button) {
                button.classList.toggle('liked');
                const isLiked = button.classList.contains('liked');
-               button.style.backgroundImage = isLiked ? "url('images/heart2.png')" : "url('images/heart1.png')";
+               button.style.backgroundImage = isLiked ? "url('icons/heart2.png')" : "url('icons/heart1.png')";
 
                if (isLiked) {
                    button.style.transform = 'scale(1.3)';
