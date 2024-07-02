@@ -284,19 +284,28 @@
          }
 
          document.addEventListener('DOMContentLoaded', function() {
-             initializeWidgets();
-             toggleWidgets();
-             const header = document.querySelector('.header');
-             setTimeout(() => {
-                 header.style.opacity = 1;
-             }, 200);
-
-             header.addEventListener('click', function() {
-                 this.classList.add('header-pressed');
-                 setTimeout(() => {
-                     this.classList.remove('header-pressed');
-                 }, 200);
-             });
+          initializeWidgets();
+          const header = document.querySelector('.header');
+          setTimeout(() => {
+              header.style.opacity = 1;
+          }, 200);
+      
+          header.addEventListener('click', function() {
+              this.classList.add('header-pressed');
+              setTimeout(() => {
+                  this.classList.remove('header-pressed');
+              }, 200);
+          });
+      
+          const widgets = document.getElementById('widgets');
+          const widgetBoxes = widgets.querySelectorAll('.widget-box');
+          
+          widgets.style.maxHeight = `${widgets.scrollHeight}px`;
+          widgetBoxes.forEach((widget, index) => {
+              setTimeout(() => {
+                  widget.classList.add('show');
+              }, 100 * index);
+          });
 
              const photos = [
                  { filename: 'images/1.png', title: 'ISA와 함께', date: '2023년 12월' },
