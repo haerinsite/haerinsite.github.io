@@ -36,10 +36,32 @@
          border-radius: 10px;
          opacity: 0;
          transition: opacity 2s ease;
+         position: relative;
          }
          .header-pressed {
          background-color: #154360;
          color: #f0f0f0;
+         }
+         .header::before, .header::after {
+         content: '';
+         position: absolute;
+         top: 50%;
+         transform: translateY(-50%);
+         width: 20px;
+         height: 20px;
+         background-size: cover;
+         }
+         .header::before {
+         left: 10px;
+         }
+         .header::after {
+         right: 10px;
+         }
+         .header:not(.toggled)::before, .header:not(.toggled)::after {
+         background-image: url('icons/down.png');
+         }
+         .header.toggled::before, .header.toggled::after {
+         background-image: url('icons/up.png');
          }
          .photo-container {
          display: none;
@@ -268,6 +290,7 @@
          function toggleWidgets() {
             const widgets = document.getElementById('widgets');
             const widgetBoxes = widgets.querySelectorAll('.widget-box');
+            const header = document.querySelector('.header');
 
             if (widgets.style.maxHeight === '0px' || widgets.style.maxHeight === '') {
                 widgetBoxes.forEach((widget, index) => {
@@ -276,6 +299,7 @@
                     }, 100 * index);
                 });
                 widgets.style.maxHeight = `${widgets.scrollHeight}px`;
+                header.classList.add('toggled');
             } else {
                 [...widgetBoxes].reverse().forEach((widget, index) => {
                     setTimeout(() => {
@@ -283,6 +307,7 @@
                     }, 100 * index);
                 });
                 widgets.style.maxHeight = '0';
+                header.classList.remove('toggled');
             }
          }
 
